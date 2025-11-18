@@ -5,19 +5,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
-    // 1️⃣ Get all vehicles by service year
+    // Question 1: Find all vehicles by year
     List<Vehicle> findByServiceYear(int serviceYear);
 
-    // 2️⃣ Get vehicle type by service ID (only one column)
-    @Query("SELECT v.vehicleType FROM Vehicle v WHERE v.serviceId = :serviceId")
-    String findVehicleTypeByServiceId(@Param("serviceId")Long serviceId);
+    // Question 2: Find specific vehicle type by Service ID using custom Query
+    @Query("SELECT v.vehicleType FROM Vehicle v WHERE v.serviceId = :id")
+    String findVehicleTypeByServiceId(@Param("id") Long serviceId);
 
-    // 3️⃣ Delete all by service year
+    // Question 3: Delete all records by year
+    @Transactional
     void deleteByServiceYear(int serviceYear);
 }

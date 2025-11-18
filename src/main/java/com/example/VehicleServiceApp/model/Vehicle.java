@@ -1,30 +1,59 @@
 package com.example.VehicleServiceApp.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "vehicles")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "vehicle_service")
 public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long serviceId;
 
-    @Column(nullable = false)
-    private String vehicleType;
+    private String vehicleType; // e.g., Car, Van
+    private int serviceYear;    // e.g., 2023
+    private String ownerName;   // e.g., Kamal
 
-    @Column(nullable = false)
-    private String ownerName;
+    // --- Constructors ---
+    public Vehicle() {
+    }
 
-    @Column(nullable = false)
-    private int serviceYear;
+    public Vehicle(String vehicleType, int serviceYear, String ownerName) {
+        this.vehicleType = vehicleType;
+        this.serviceYear = serviceYear;
+        this.ownerName = ownerName;
+    }
 
-    @Column(nullable = false)
-    private String serviceDetails;
+    // --- Getters and Setters ---
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    public int getServiceYear() {
+        return serviceYear;
+    }
+
+    public void setServiceYear(int serviceYear) {
+        this.serviceYear = serviceYear;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
 }

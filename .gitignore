@@ -31,3 +31,38 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Java general ###
+*.class
+*.log
+hs_err_pid*
+replay_pid*
+
+### Maven ###
+log/
+logs/
+release.properties
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release-pom.xml
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+### Gradle (if present) ###
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+### OS files ###
+.DS_Store
+Thumbs.db
+
+### Node (if any frontend) ###
+node_modules/
+
+### Reports/Coverage ###
+.coverage/
+.coverage.*
+site/

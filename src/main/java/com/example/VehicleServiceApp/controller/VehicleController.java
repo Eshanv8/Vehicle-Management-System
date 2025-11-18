@@ -10,40 +10,35 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/vehicles")
-@CrossOrigin(origins = "*")
 public class VehicleController {
 
     @Autowired
-    private VehicleService vehicleService;
+    private VehicleService vehicleService; // Connects to Service, not Repository directly
 
-    // Create vehicle
-    @PostMapping
-    public Vehicle saveVehicle(@RequestBody Vehicle vehicle) {
-        return vehicleService.saveVehicle(vehicle);
+    // 1. Get by Year
+    @GetMapping("/by-year/{year}")
+    public ResponseEntity<List<Vehicle>> getVehiclesByYear(@PathVariable int year) {
+        List<Vehicle> vehicles = vehicleService.getVehiclesByYear(year);
+        if (vehicles.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(vehicles);
     }
 
-    // Get all vehicles
-    @GetMapping
-    public List<Vehicle> getAllVehicles() {
-        return vehicleService.getAllVehicles();
-    }
-
-    // 1️⃣ Get vehicles by service year
-    @GetMapping("/year/{year}")
-    public List<Vehicle> getVehiclesByYear(@PathVariable int year) {
-        return vehicleService.getVehiclesByYear(year);
-    }
-
-    // 2️⃣ Get only vehicle type by service ID
+    // 2. Get Type by ID
     @GetMapping("/type/{id}")
-    public String getVehicleType(@PathVariable Long id) {
-        return vehicleService.getVehicleTypeById(id);
+    public ResponseEntity<String> getVehicleType(@PathVariable Long id) {
+        String type = vehicleService.getVehicleTypeById(id);
+        if (type == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(type);
     }
 
-    // 3️⃣ Delete vehicles by year
-    @DeleteMapping("/year/{year}")
+    // 3. Delete by Year
+    @DeleteMapping("/by-year/{year}")
     public ResponseEntity<String> deleteVehiclesByYear(@PathVariable int year) {
         vehicleService.deleteVehiclesByYear(year);
-        return ResponseEntity.ok("All vehicles from year " + year + " deleted successfully.");
+        return ResponseEntity.ok("All records for year " + year + " have been deleted.");
     }
 }
